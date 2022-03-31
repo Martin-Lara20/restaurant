@@ -10,14 +10,14 @@ export default function Account(){
     //login es la vaerable para efectuar la accion y set es la accion en lo que probocará
     const [login, setLongin] = useState(null)
 
-/*     useEffect(()=>{
+    useEffect(()=>{
         firebase.auth().onAuthStateChanged((user)=>{
             console.log(user)
             !user ? setLongin(false) : setLongin(true)
             //? if 
             //: else
         })
-    }, []) */
+    }, [])
 
     if(login === null) return <Loading isVisible = {true} text = 'Cargando...'/>
 
