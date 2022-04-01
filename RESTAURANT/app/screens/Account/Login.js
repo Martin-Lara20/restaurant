@@ -4,7 +4,7 @@ import {Divider} from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 
 export default function Login(){
-    const navigation = useNavigation()
+
     return(
         <ScrollView>
             <Image
@@ -23,6 +23,7 @@ export default function Login(){
 }
 
 function CreateAccount(){
+    const navigation = useNavigation()
     return(
         <Text style = {styles.textRegister}>
             ¿Aun no tienes cuenta?{' '}
