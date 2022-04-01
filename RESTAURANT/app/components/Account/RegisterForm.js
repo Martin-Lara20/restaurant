@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import {StyleSheet, View, Text} from 'react-native'
 import {Input, Icon, Button} from 'react-native-elements'
 
+import { validateEmail } from '../../utils/Validation'
+
 
 export default function RegisterForm(){
     const [showPassword, setShowPassword] = useState(false)
@@ -9,13 +11,23 @@ export default function RegisterForm(){
     const [formData, setFormData] = useState(defaultFormValues())
 
     const onSubmit = () => {
-        console.log(formData)
+        /* console.log(formData)
+        console.log(validateEmail(formData.email)) */
+        if(formData.email.length===0 ||formData.password.length===0 || formData.repeatPassword.length===0){
+            console.log('Todos los campos son requeridos')
+        }else if(!validateEmail(formData.email)){
+            console.log('El email no es correcto')
+        } else if(formData.password !== formData.repeatPassword){
+            console.log('Las contraseñas deben ser identicas')
+        } else if(formData.password.length < 6){
+            console.log('El Password debe tener mínimo 6 caracteres')
+        } else{
+            console.log('Te has Registrado')
+        }
     }
 
     const onChange = (e, type) => {
-        /* console.log(type)
-        console.log(e.nativeEvent.text)
-        setFormData({[type]: e.nativeEvent.text}) */
+
         setFormData({...formData,[type]: e.nativeEvent.text})
     }
 

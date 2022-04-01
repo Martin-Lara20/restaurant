@@ -54,5 +54,10 @@ const styles = StyleSheet.create({
     btnContainer:{
         width: '70%',
 
+    },
+    descripcion:{
+        textAlign: "center",
+        fontSize: 15
     }
+
 })

@@ -14,7 +14,6 @@ export default function Login(){
             />
 
             <View style = {styles.viewContainer}>
-                <Text>Login Form</Text>
                 <CreateAccount/>
             </View>
             <Divider style={styles.divider}/>
@@ -56,10 +55,12 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginLeft: 10,
         marginRight: 10,
+        textAlign: "center"
     },
     linkRegister:{
         color:'#00a680',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: "center"
     }
 
 })
