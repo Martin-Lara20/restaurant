@@ -5,7 +5,8 @@ import {Input, Icon, Button} from 'react-native-elements'
 import { validateEmail } from '../../utils/Validation'
 
 
-export default function RegisterForm(){
+export default function RegisterForm(props){
+    const {toastRef} = (props) 
     const [showPassword, setShowPassword] = useState(false)
     const [showRepeatPassword, setShowRepeatPassword] = useState(false)
     const [formData, setFormData] = useState(defaultFormValues())
@@ -14,15 +15,46 @@ export default function RegisterForm(){
         /* console.log(formData)
         console.log(validateEmail(formData.email)) */
         if(formData.email.length===0 ||formData.password.length===0 || formData.repeatPassword.length===0){
-            console.log('Todos los campos son requeridos')
+             toastRef.current.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Empty',
+                text2: 'Todos los campos son requeridos',
+                visibilityTime: 30000
+            });
         }else if(!validateEmail(formData.email)){
-            console.log('El email no es correcto')
+            toastRef.current.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Empty',
+                text2: 'El email es incorrecto',
+                visibilityTime: 30000
+            });        
         } else if(formData.password !== formData.repeatPassword){
-            console.log('Las contraseñas deben ser identicas')
+            toastRef.current.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Empty',
+                text2: 'Las contraseñas deben ser identica',
+                visibilityTime: 30000
+            });
+            
         } else if(formData.password.length < 6){
-            console.log('El Password debe tener mínimo 6 caracteres')
+            toastRef.current.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Empty',
+                text2: 'El Password debe tener mínimo 6 caracteres',
+                visibilityTime: 30000
+            });
         } else{
-            console.log('Te has Registrado')
+            toastRef.current.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Empty',
+                text2: 'Te has Registrado',
+                visibilityTime: 30000
+            });
         }
     }
 
