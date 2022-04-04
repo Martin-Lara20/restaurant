@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {StyleSheet, View, Text} from 'react-native'
 import {Input, Icon, Button} from 'react-native-elements'
+import firebase from 'firebase'
 
 import { validateEmail } from '../../utils/Validation'
 
@@ -48,13 +49,21 @@ export default function RegisterForm(props){
                 visibilityTime: 30000
             });
         } else{
-            toastRef.current.show({
-                type: 'error',
-                position: 'top',
-                text1: 'Empty',
-                text2: 'Te has Registrado',
-                visibilityTime: 30000
-            });
+            firebase.auth().
+            createUserWithEmailAndPassword(formData.email, formData.password)
+            .then((response) =>{
+                console.log(response)
+            })
+            .catch((err)=>{
+                console.log(err)
+                toastRef.current.show({
+                    type: 'error',
+                    position: 'top',
+                    text1: 'Empty',
+                    text2: 'Este correo ya está registrado',
+                    visibilityTime: 30000
+                });
+            })
         }
     }
 
