@@ -8,6 +8,7 @@ export default function UserLogged(){
             <Text>
                 UserLogged
             </Text>
+            <Button title='Cerrar Sesión' onPress={()=>firebase.auth().signOut()}/>
         </View>
     )
 }
