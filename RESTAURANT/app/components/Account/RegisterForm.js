@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {StyleSheet, View, Text} from 'react-native'
 import {Input, Icon, Button} from 'react-native-elements'
 import firebase from 'firebase'
+import {useNavigation} from '@react-navigation/native'
 
 import { validateEmail } from '../../utils/Validation'
 
@@ -11,6 +12,8 @@ export default function RegisterForm(props){
     const [showPassword, setShowPassword] = useState(false)
     const [showRepeatPassword, setShowRepeatPassword] = useState(false)
     const [formData, setFormData] = useState(defaultFormValues())
+
+    const navigation = useNavigation()
 
     const onSubmit = () => {
         /* console.log(formData)
@@ -49,13 +52,13 @@ export default function RegisterForm(props){
                 visibilityTime: 30000
             });
         } else{
-            firebase.auth().
-            createUserWithEmailAndPassword(formData.email, formData.password)
+            firebase.auth()
+            .createUserWithEmailAndPassword(formData.email, formData.password)
             .then((response) =>{
-                console.log(response)
+                /* console.log(response) */
+                navigation.navigate('account')
             })
-            .catch((err)=>{
-                console.log(err)
+            .catch(()=>{
                 toastRef.current.show({
                     type: 'error',
                     position: 'top',
