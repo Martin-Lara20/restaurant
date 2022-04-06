@@ -1,23 +1,31 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {StyleSheet, View, ScrollView, Text, Image} from 'react-native'
 import {Divider} from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Toast from "react-native-toast-message";
+
+import LoginForm from '../../components/Account/LoginForm'
 
 export default function Login(){
 
+    const toastRef = useRef()
+
     return(
-        <ScrollView>
+        <KeyboardAwareScrollView>
             <Image
                 source={require('../../../assets/img/logo.png')}
                 resizeMode = 'contain'
                 style = {styles.logo}
-            />
+            />              
 
             <View style = {styles.viewContainer}>
+                <LoginForm  toastRef={toastRef} />
                 <CreateAccount/>
             </View>
+            <Toast ref={toastRef}/>
             <Divider style={styles.divider}/>
-        </ScrollView>
+        </KeyboardAwareScrollView>
     )
 }
 
@@ -34,6 +42,7 @@ function CreateAccount(){
         </Text>
     )
 }
+
 
 const styles = StyleSheet.create({
 
