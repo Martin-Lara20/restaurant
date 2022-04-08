@@ -24,7 +24,7 @@ export default function UserLogged(){
     return (
         <View style ={styles.viewUserInfo}>
            {/* UserInfor es la constante del hot de estado */} 
-           {userInfo && <InforUser userInfo={userInfo}/>}
+           {userInfo && <InforUser userInfo={userInfo} toastRef={toastRef}/>}
             <Text>Email </Text>
             <Button 
                 buttonStyle ={styles.btnCloseSesion}
