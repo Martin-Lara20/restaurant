@@ -5,7 +5,7 @@ import firebase from 'firebase'
 import Toast from 'react-native-toast-message'
 
 import InforUser from '../../components/Account/InfoUser'
-import AccountOption from './AccaountOption'
+import AccountOption from '../../components/Account/AccaountOption'
 
 
 export default function UserLogged(){
