@@ -4,10 +4,11 @@ import {Avatar} from 'react-native-elements'
 import firebase from 'firebase'
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
+import Loading from '../../components/Loading'
 
 export default function InforUser(props){
     /* props trae toda la informaciójn de UserInfo */
-    const {userInfo : {photoURL, displayName, email} } = props
+    const {userInfo : {uid, photoURL, displayName, email, toastRef}  } = props
 
     const changeAvatar= async()=>{
         const resultPermissions = await Permissions.askAsync(Permissions.MEDIA_LIBRARY)
@@ -27,7 +28,52 @@ export default function InforUser(props){
                 aspect:[4,3]
             })
             console.log(result)
+            if(result.cancelled){
+                toastRef.current.show({
+                    type: 'Info',
+                    position: 'top',
+                    text1: 'Cancelled',
+                    text2: 'Selecciona una imagen',
+                    visibilityTime: 30000
+                });
+            } else{
+                uploadImage(result.uri).then(() =>{
+                    console.log('Imagen dentro de firebase')
+                    updatePhotoUrl()
+                }).catch(() => {
+                    toastRef.current.show({
+                        type: 'Error',
+                        position: 'top',
+                        text1: 'Firebase Error',
+                        text2: 'No se pudo actualizar el avatar',
+                        visibilityTime: 30000
+                    });
+                })
+            }
         }
+    }
+
+    /* Es una funcion para enviar la información a traves de un JSON a firebase
+    para que se guarde, practicamente simplifica todo el codigo de la uri 
+    esto sube a imagen y  uestra ña información*/
+    const uploadImage = async (uri) => {
+        console.log(uri)
+        const response = await fetch(uri)
+        console.log(JSON.stringify (response))
+        const blob = await response.blob()
+        console.log(JSON.stringify(blob))
+        const ref = firebase.storage().ref().child(`Avatar/${uid}`)
+        return ref.put(blob)
+    }
+    const updatePhotoUrl = () =>{
+        firebase.storage().ref(`Avatar/${uid}`).getDownloadURL()
+        .then(async(response)=>{
+            console.log(response)
+            const update = {photoURL : response}
+            await firebase.auth().currentUser.updateProfile(update)
+            console.log('Imagen actualizada')
+            return <Loading isVisible = {true} text = 'Cargando...'/>
+        })
     }
 
     return(
@@ -42,7 +88,9 @@ export default function InforUser(props){
                     photoURL ? {uri:photoURL} : require('../../../assets/img/avatar-default.jpg')
                 }
                 /* Condicional ternario */
+                
             />
+
             <View>
                 <Text style={styles.displayName}>
                     {displayName ? displayName : 'Invitado'}
