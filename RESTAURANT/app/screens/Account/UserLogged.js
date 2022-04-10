@@ -5,6 +5,8 @@ import firebase from 'firebase'
 import Toast from 'react-native-toast-message'
 
 import InforUser from '../../components/Account/InfoUser'
+import AccountOption from './AccaountOption'
+
 
 export default function UserLogged(){
     const[userInfo, setUserInfo] = useState(null)
@@ -25,7 +27,8 @@ export default function UserLogged(){
         <View style ={styles.viewUserInfo}>
            {/* UserInfor es la constante del hot de estado */} 
            {userInfo && <InforUser userInfo={userInfo} toastRef={toastRef}/>}
-            <Text>Email </Text>
+           <AccountOption userInfo ={userInfo} toastRef={toastRef}/>
+
             <Button 
                 buttonStyle ={styles.btnCloseSesion}
                 titleStyle={styles.btnClaseSessionText}
