@@ -9,25 +9,26 @@ import AccountOption from '../../components/Account/AccaountOption'
 
 
 export default function UserLogged(){
-    const[userInfo, setUserInfo] = useState(null)
-    
+    const[userInfo, setUserInfo, ] = useState(null)
+    const[reloadUserInfo, setReloadUserInfo] = useState(false)
     const toastRef = useRef()
 
     /* () hace referencaia a que es anonima */
     /* Aqui mandamos a llamar la info de firebase  */
     useEffect( ()=>{
         (async()=>{
-            const user = await firebase.auth().
-            currentUser
-            setUserInfo(user)
+            const user = await firebase.auth()
+            .currentUser
+            setUserInfo(false)
         })()
-    },[])
-
+        setReloadUserInfo(false)
+    },[reloadUserInfo])
+           
     return (
         <View style ={styles.viewUserInfo}>
-           {/* UserInfor es la constante del hot de estado */} 
-           {userInfo && <InforUser userInfo={userInfo} toastRef={toastRef}/>}
-           <AccountOption userInfo ={userInfo} toastRef={toastRef}/>
+
+           {userInfo && (<InforUser userInfo={userInfo} toastRef={toastRef}/>)}
+           <AccountOption userInfo ={userInfo} toastRef={toastRef} setReloadUserInfo={setReloadUserInfo}/>
 
             <Button 
                 buttonStyle ={styles.btnCloseSesion}

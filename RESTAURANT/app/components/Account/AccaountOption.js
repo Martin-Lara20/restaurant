@@ -2,15 +2,24 @@ import React, { useState } from "react";
 import {ListItem, Icon} from 'react-native-elements';
 import { StyleSheet, View, Text } from "react-native";
 import { Modal } from "../Modal";
+import ChageDisplayNameForm from "./ChangeDisplayNameForm";
 
 export default function AccountOption(props){
-    const {userInfo, toastRef} = props
+    const {userInfo, toastRef, setReloadUserInfo} = props
     const [showModal, setShowModal] = useState(false)
     const [renderComponent, setRenderComponent] =useState(null)
+    console.log(userInfo)
     const selectedComponent = (key) => {
         switch(key){
             case 'displayName':
-                setRenderComponent(<Text>Cambiando nombre y apellido</Text>)
+                setRenderComponent(
+                    <ChageDisplayNameForm
+                        displayName={userInfo.displayName}
+                        setShowModal={setShowModal}
+                        toastRef={toastRef}
+                        setReloadUserInfo = {setReloadUserInfo}
+                    />
+                )
                 setShowModal(true)
                 break
             
