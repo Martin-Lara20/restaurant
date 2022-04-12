@@ -3,12 +3,16 @@ import {ListItem, Icon} from 'react-native-elements';
 import { StyleSheet, View, Text } from "react-native";
 import { Modal } from "../Modal";
 import ChageDisplayNameForm from "./ChangeDisplayNameForm";
+import ChangeDisplayEmailForm from "./ChangeDisplayEmailForm";
+import ChangeDisplayPasswordForm from "./ChangeDisplayPasswordForm";
 
 export default function AccountOption(props){
-    const {userInfo, toastRef, setReloadUserInfo} = props
+    const {userInfo, toastRef, setReloadUserInfo } = props
     const [showModal, setShowModal] = useState(false)
     const [renderComponent, setRenderComponent] =useState(null)
+    
     console.log(userInfo)
+    
     const selectedComponent = (key) => {
         switch(key){
             case 'displayName':
@@ -24,12 +28,23 @@ export default function AccountOption(props){
                 break
             
             case 'displayEmail':
-                setRenderComponent(<Text>Cambiando Email</Text>)
+                setRenderComponent(
+                    <ChangeDisplayEmailForm
+                        email={userInfo.email}
+                        setShowModal={setShowModal}
+                        toastRef={toastRef}
+                        setReloadUserInfo = {setReloadUserInfo}
+                    />
+                )
                 setShowModal(true)
                 break
             
             case 'displayPassword':
-                setRenderComponent(<Text>Cambiando password</Text>)
+                setRenderComponent(
+                    <ChangeDisplayPasswordForm
+                    
+                    />
+                )
                 setShowModal(true)
                 break
             default:

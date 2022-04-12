@@ -4,7 +4,7 @@ import {Button} from "react-native-elements"
 import firebase from 'firebase'
 import Toast from 'react-native-toast-message'
 
-import InforUser from '../../components/Account/InfoUser'
+import InfoUser from '../../components/Account/InfoUser'
 import AccountOption from '../../components/Account/AccaountOption'
 
 
@@ -13,13 +13,12 @@ export default function UserLogged(){
     const[reloadUserInfo, setReloadUserInfo] = useState(false)
     const toastRef = useRef()
 
-    /* () hace referencaia a que es anonima */
-    /* Aqui mandamos a llamar la info de firebase  */
+    // () hace referencaia a que es anonima */
+    //Aqui mandamos a llamar la info de firebase
     useEffect( ()=>{
         (async()=>{
-            const user = await firebase.auth()
-            .currentUser
-            setUserInfo(false)
+            const user = await firebase.auth().currentUser
+            setUserInfo(user)
         })()
         setReloadUserInfo(false)
     },[reloadUserInfo])
@@ -27,7 +26,7 @@ export default function UserLogged(){
     return (
         <View style ={styles.viewUserInfo}>
 
-           {userInfo && (<InforUser userInfo={userInfo} toastRef={toastRef}/>)}
+           {userInfo && (<InfoUser userInfo={userInfo} toastRef={toastRef}/>)}
            <AccountOption userInfo ={userInfo} toastRef={toastRef} setReloadUserInfo={setReloadUserInfo}/>
 
             <Button 
