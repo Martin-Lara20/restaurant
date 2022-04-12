@@ -4,9 +4,9 @@ import {Avatar} from 'react-native-elements'
 import firebase from 'firebase'
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
-import Loading from '../../components/Loading'
 
-export default function InforUser(props){
+
+export default function InfoUser(props){
     /* props trae toda la informaciójn de UserInfo */
     const {userInfo : {uid, photoURL, displayName, email, toastRef}  } = props
 
@@ -72,7 +72,7 @@ export default function InforUser(props){
             const update = {photoURL : response}
             await firebase.auth().currentUser.updateProfile(update)
             console.log('Imagen actualizada')
-            return <Loading isVisible = {true} text = 'Cargando...'/>
+
         })
     }
 
