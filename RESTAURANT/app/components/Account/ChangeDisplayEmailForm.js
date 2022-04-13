@@ -68,20 +68,25 @@ export default function ChangeDisplayEmailForm(props){
             <Input
                 placeholder="Ingresar nuevo email..."
                 containerStyle = {styles.input}
+                defaultValue={email || ''} 
+                onChange={(e)=>setNewEmail(e.nativeEvent.text)}
+                errorMessage={error}
+                keyboardType="email-address"
                 rightIcon={{
                     type:'material-community',
                     name: 'at',
                     color: '#c2c2c2'
                     
                 }}
-                defaultValue={email || ''} 
-                onChange={(e)=>setNewEmail(e.nativeEvent.text)}
-                errorMessage={error}
-                keyboardType="email-address"
             />
             <Input
-                placeholder="'Ingresa tu contraseña'"
+                placeholder="Ingresa tu contraseña"
                 containerStyle = {styles.input}
+                defaultValue={password || ''} 
+                onChange={(e)=>setPassword(e.nativeEvent.text)}
+                errorMessage={errorPasword}
+                password={true}
+                secureTextEntry={showPassword ? false : true}
                 rightIcon={
                     <Icon
                         type="material-community"
@@ -90,11 +95,6 @@ export default function ChangeDisplayEmailForm(props){
                         onPress={()=>setShowPassword(!showPassword)}
                     />
                 }
-                defaultValue={password || ''} 
-                onChange={(e)=>setPassword(e.nativeEvent.text)}
-                errorMessage={errorPasword}
-                password={true}
-                secureTextEntry={showPassword ? false : true}
             />            
             <Button
                 title='Guardar Cambios'
