@@ -41,8 +41,9 @@ export default function AccountOption(props){
             
             case 'displayPassword':
                 setRenderComponent(
-                    <ChangeDisplayPasswordForm
-                    
+                    <ChangeDisplayPasswordForm  
+                        setShowModal={setShowModal}
+                        toastRef={toastRef}                      
                     />
                 )
                 setShowModal(true)
